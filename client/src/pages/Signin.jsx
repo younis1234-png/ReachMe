@@ -27,8 +27,8 @@ const Signin = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        password: password,
-        email: email,
+        password,
+        email,
       }),
     })
       .then((res) => res.json())
@@ -37,6 +37,10 @@ const Signin = () => {
         if (data.error) {
           M.toast({ html: data.error, classes: "#c62828 red darken-3" });
         } else {
+          console.log(data.token);
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+
           M.toast({
             html: "Signed in success",
             classes: "#43a047 green darken-1",

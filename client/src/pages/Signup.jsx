@@ -42,6 +42,9 @@ const Signup = () => {
           // after user signup we can navigate them to our login
           history.push("/signin");
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

@@ -50,40 +50,26 @@ router.post("/signup", (req, res) => {
 
 router.post("/signin", (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
-    return res
-      .status(422)
-      .json({ error: "Please provide an email or password" });
-    return;
+    return res.status(422).json({ error: "please add email or password" });
   }
-
   User.findOne({ email: email }).then((savedUser) => {
     if (!savedUser) {
-      return res.status(422).json({ error: "Invalid password or email" });
+      return res.status(422).json({ error: "Invalid Email or password" });
     }
-
-    // compare password
     bcrypt
       .compare(password, savedUser.password)
       .then((doMatch) => {
         if (doMatch) {
-          res.json({ message: "successfully signed in!!" });
-
-          const token = jwt.sign(
-            {
-              _id: savedUser._id,
-            },
-            JWT_SECRET
-          );
-
-          console.log(token);
-          return;
-
-          const { _id, name, email } = savedUser;
-          res.json({ token, user: { _id, name, email } });
+          // res.json({message:"successfully signed in"})
+          const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
+          const { _id, name, email, followers, following, photo } = savedUser;
+          res.json({
+            token,
+            user: { _id, name, email, followers, following, photo },
+          });
         } else {
-          return res.status(422).json({ error: "Invalid email or password" });
+          return res.status(422).json({ error: "Invalid Email or password" });
         }
       })
       .catch((err) => {
