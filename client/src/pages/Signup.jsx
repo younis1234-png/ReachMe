@@ -10,9 +10,8 @@ const Signup = () => {
         <input type="text" placeholder="Name" />
         <input type="password" placeholder="password" />
         <button className="btn waves-effect waves-light">SignUp</button>
-
         <h5>
-          <Link to="/login">Login</Link>
+          <Link to="/signin">Signin</Link>
         </h5>
       </div>
     </div>

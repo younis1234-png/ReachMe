@@ -8,6 +8,7 @@ import {
   UserProfile,
   Profile,
 } from "./pages";
+import "./App.css";
 
 function App() {
   return (

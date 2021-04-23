@@ -23,3 +23,16 @@ h2 {
   border-bottom: 1px solid rgb(163, 246, 255) !important;
   box-shadow: 0 1px 0 0 rgb(163, 246, 255) !important;
 }
+
+/* profile */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.item {
+  width: 30%;
+  height: 20%;
+  margin-bottom: 15px;
+}
+/* profile end */
