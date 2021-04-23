@@ -8,11 +8,13 @@ import {
   UserProfile,
   Profile,
 } from "./pages";
+import Navbar from "./components/Navbar";
 import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <Route exact path="/" component={Home}></Route>
         <Route path="/signin" component={Signin}></Route>

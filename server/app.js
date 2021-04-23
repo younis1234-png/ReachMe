@@ -6,6 +6,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const PORT = 1111;
 const { MONGOURL } = require("./keys");
+const cors = require("cors");
+app.use(cors());
 
 require("./models/post");
 require("./models/user");
