@@ -35,7 +35,8 @@ const Routing = () => {
       <Route exact path="/" component={Home}></Route>
       <Route path="/signin" component={Signin}></Route>
       <Route path="/signup" component={Signup}></Route>
-      <Route path="/profile" component={Profile}></Route>
+      <Route exact path="/profile" component={Profile}></Route>
+      <Route path="/profile/:userid" component={UserProfile}></Route>
       <Route path="/createpost" component={CreatePost}></Route>
     </Switch>
   );

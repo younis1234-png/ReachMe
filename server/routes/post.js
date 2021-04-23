@@ -99,12 +99,11 @@ router.put("/unlike", requireLogin, (req, res) => {
 });
 
 // COMMENT ON POST
-router.put("/comment", (req, res) => {
+router.put("/comment", requireLogin, (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.user._id,
   };
-
   Post.findByIdAndUpdate(
     req.body.postId,
     {
@@ -114,7 +113,6 @@ router.put("/comment", (req, res) => {
       new: true,
     }
   )
-    // populate the name
     .populate("comments.postedBy", "_id name")
     .populate("postedBy", "_id name")
     .exec((err, result) => {

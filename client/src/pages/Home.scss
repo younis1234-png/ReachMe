@@ -1,0 +1,35 @@
+.home {
+  width: 70vh;
+  margin: 50px;
+  // background-color: #faddcb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  // flex-direction: column;
+  flex-wrap: wrap;
+  font-size: 1rem;
+
+  &__card {
+    max-width: 200px;
+    margin: 20px auto;
+    border: 1px solid gray;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  &__cardImage {
+    width: inherit;
+  }
+  &__icon {
+    float: right;
+  }
+  &__image {
+    width: 466px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+  &__span {
+    font-weight: 500;
+    margin-right: 8px;
+  }
+}
