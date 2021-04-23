@@ -1,26 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-export default function Home() {
+const Home = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("/allpost", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result.posts);
+        setData(result.posts);
+      });
+  }, []);
+
+  
+
   return (
     <div className="home">
-      {/* post card */}
-      <div className="card home__card">
-        <h5>Younis</h5>
-        <div className="card-image">
-          <img
-            alt="home img"
-            src="https://images.unsplash.com/photo-1616474648384-9e956216d1b7?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80"
-          />
-        </div>
-        {/* icons */}
-        <div className="card-content">
-          <i className="material-icons">favorite</i>
-          <i className="material-icons">favorite</i>
-          <h6>title</h6>
-          <p>This is an amzing post</p>
-          <input type="text" placeholder="add a comment" />
-        </div>
-      </div>
+      {data.map((item) => {
+        // console.log(item.postedBy.name);
+        return (
+          <div key={item._id} className="card home__card">
+            <h5>
+              {!item.postedBy.name
+                ? item.postedBy.name == "no name"
+                : item.postedBy.name}
+            </h5>
+            <div className="card-image">
+              <img alt="home img" src={item.photo} />
+            </div>
+            {/* icons */}
+            <div className="card-content">
+              <i className="material-icons">favorite</i>
+              <i className="material-icons">favorite</i>
+              <h6>{item.title}</h6>
+              <p>{item.body}</p>
+              <input type="text" placeholder="add a comment" />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
-}
+};
+
+export default Home;

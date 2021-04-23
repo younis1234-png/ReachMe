@@ -5,7 +5,7 @@ const Post = mongoose.model("Post");
 const requireLogin = require("../middleware/requiredLogin");
 
 // GET ALL POST
-router.get("/allpost", (req, res) => {
+router.get("/allpost", requireLogin, (req, res) => {
   Post.find()
     .populate("postedBy", "_id name")
     .populate("comments.postedBy", "_id name")
@@ -35,27 +35,29 @@ router.post("/createpost", requireLogin, (req, res) => {
   const { title, body, photo } = req.body;
 
   if (!title || !body || !photo) {
-    res.status(422).json({ error: "Please add all the required fields" });
-  }
+    return res
+      .status(422)
+      .json({ error: "Please add all the required fields" });
+  } else {
+    // not show our password
+    req.user.password = undefined;
 
-  // not show our password
-  req.user.password = undefined;
-
-  // create a new post
-  const post = new Post({
-    title: title,
-    body: body,
-    photo: photo,
-    postedBy: req.user,
-  });
-  post
-    .save()
-    .then((results) => {
-      res.json({ post: results });
-    })
-    .catch((error) => {
-      console.log(error);
+    // create a new post
+    const post = new Post({
+      title: title,
+      body: body,
+      photo: photo,
+      postedBy: req.user,
     });
+    post
+      .save()
+      .then((results) => {
+        res.json({ post: results });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 });
 
 // LIKE
